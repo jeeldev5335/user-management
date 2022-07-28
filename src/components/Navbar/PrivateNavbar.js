@@ -1,20 +1,28 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { removeToken } from "../../utils";
 
 
-const PrivateNavbar = () => {
+const PrivateNavbar = (props) => {
+
+  const { me } = props;
+
+  const handleLogout = () => {
+    removeToken();
+    window.location.href = "/";
+  }
 
   return (
     <React.Fragment>
-      <div className="navbar navbar-expand-lg navbar-light bg-light">
+      <div className="navbar navbar-expand-lg navbar-light bg-light text-center">
         <div className="navbar-collapse ms-3">
           <Link className="nav-link m-2" to="/">Users</Link>
           <Link className="nav-link m-2" to="register">Form</Link>
         </div>
         <div className="me-4">
-          <div>Welcome</div>
+          <h4>Welcome {me.name}</h4>
           <div>
-            <Link className="nav-link m-2" to="login">Logout</Link>
+            <Link className="nav-link m-2" onClick={handleLogout} to="login">Logout</Link>
           </div>
         </div>
       </div>

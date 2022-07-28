@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import PublicNavbar from "../Navbar/PublicNavbar";
 import { Link } from "react-router-dom";
 
 const Forgotpass = () => {
@@ -25,9 +24,8 @@ const Forgotpass = () => {
 
     return (
         <React.Fragment>
-            <PublicNavbar />
             <div className="container">
-                <h2 className="text-center my-3">Reset Password</h2>
+                <h2 className="text-center my-3">Forgot Password</h2>
                 <p className="text-center">Enter your email to reset your password</p>
                 <div className="col-md-4 offset-md-4">
                     <form className="row g-3 my-4" onSubmit={e => e.preventDefault()}>

@@ -6,17 +6,18 @@ import api from '../../api';
 
 const UserTable = () => {
 
-    const [data, setData] = useState({});
-
     useEffect(() => {
         handleData();
-    })
+    }, [])
 
     const handleData = () => {
-        const token = getToken;
+        const token = getToken();
+        // console.log(token);
         api.get("/api/users", { headers: { "Authorization": `Bearer ${token}` } })
             .then((response) => {
-                console.log(response);
+                // console.log(response);
+                const { data } = response;
+                console.log(data);
             })
             .catch((error) => {
                 console.log(error);

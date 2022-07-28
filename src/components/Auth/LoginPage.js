@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import PublicNavbar from "../Navbar/PublicNavbar";
 import { Link } from "react-router-dom";
 
 const LoginPage = () => {
@@ -30,7 +29,6 @@ const LoginPage = () => {
 
     return (
         <React.Fragment>
-            <PublicNavbar />
             <div className="container">
                 <h2 className="text-center my-3">Login</h2>
                 <div className="col-md-4 offset-md-4">
@@ -50,7 +48,7 @@ const LoginPage = () => {
                         </div>
                         <div className="col-md-12 text-center">
                             <div className="d-inline m-2">
-                                <Link to="/forgotpassword">Forgot Password?</Link>
+                                <Link to="/forgot-password">Forgot Password?</Link>
                             </div>
                             <div className="d-inline m-2">
                                 <Link to="/register">Register</Link>

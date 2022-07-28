@@ -1,8 +1,8 @@
-import Routes from './components/Routes/Routes';
+import AppRoute from './components/Routes/AppRoute';
 
-function App() {
+const App = () =>  {
   return (
-    <Routes />
+    <AppRoute />
   );
 }
 

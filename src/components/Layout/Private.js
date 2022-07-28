@@ -1,13 +1,30 @@
-import React from "react";
+import { getMergedStatus } from "antd/lib/_util/statusUtils";
+import React, { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
 import PrivateNavbar from "../Navbar/PrivateNavbar";
 
 const Private = () => {
-    console.log("You are in private");
+
+    const [me, setMe] = useState({});
+
+    useEffect(() => {
+        getMe();
+    }, [])
+
+    const getMe = () => {
+        setMe({
+            name: 'Alpesh'
+        });
+    }
+
     return (
         <React.Fragment>
-            <PrivateNavbar />
-            <Outlet />
+            <PrivateNavbar me={me} />
+            {/** Rendered component from Route.js base on the URL **/}
+            <div className="container">
+                <Outlet />
+            </div>
+            {/** Rendered component from Route.js base on the URL **/}
         </React.Fragment>
     )
 };

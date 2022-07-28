@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PublicNavbar from "../Navbar/PublicNavbar";
 import { Link } from "react-router-dom";
 import CheckboxGroup from "../controls/CheckboxGroup";
@@ -10,6 +10,11 @@ const Form = () => {
 
     const [data, setData] = useState({});
     const [errors, setErrors] = useState({});
+
+    useEffect(() => {
+        console.log("usertable")
+        // handleData();
+    }, [])
 
     const handleChange = (event) => {
         setData((preData) => {
@@ -226,6 +231,7 @@ const Form = () => {
                     //console.log("Take response", response);
                     const { token } = response.data;
                     setToken(token);
+                    window.location.href = "/";
                 })
                 .catch((err) => {
                     const { response } = err;
@@ -248,9 +254,8 @@ const Form = () => {
 
     return (
         <React.Fragment>
-            <PublicNavbar />
             <div className="container">
-                <h2 className="text-center my-3">Registration Form</h2>
+                <h2 className="text-center my-3">Registration</h2>
                 <div className="col-md-6 offset-md-3">
                     <form className="row g-3 my-4" onSubmit={e => e.preventDefault()}>
                         <div className="col-lg-4">
