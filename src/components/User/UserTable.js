@@ -1,40 +1,43 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { getToken } from "../../utils";
 import api from '../../api';
 
 
 const UserTable = () => {
 
+    const [data, setData] = useState([]);
+
     useEffect(() => {
-        handleData();
+        getData();
     }, [])
 
-    const handleData = () => {
-        const token = getToken();
-        // console.log(token);
-        api.get("/api/users", { headers: { "Authorization": `Bearer ${token}` } })
+    const getData = () => {
+        api.get("/api/users")
             .then((response) => {
-                // console.log(response);
                 const { data } = response;
-                console.log(data);
+                // console.log(data);
+                setData(data);
             })
             .catch((error) => {
                 console.log(error);
             });
     }
 
+    const redirectToView = (id) => {
+        //window.location.href=`/user/${id}`
+    }
+
+
     return (
         <React.Fragment>
             <div className="border-bottom">
-                <h2 className="text-center my-5">User's Data</h2>
-                {/* <button type="submit" class="btn btn-primary"><span class="bi-search"></span></button> */}
+                <h2 className="text-center my-5">User List</h2>
             </div>
             <div className="table-responsive-md">
                 <table className="table table-striped">
                     <thead>
                         <tr>
-                            <th colSpan="8">Data:</th>
+                            <th colSpan="7">Data:</th>
                             <th>
                                 <span>
                                     <Link className="nav-link m-2" to="register">
@@ -45,7 +48,6 @@ const UserTable = () => {
                             </th>
                         </tr>
                         <tr>
-                            <th>Sr.no</th>
                             <th>ID</th>
                             <th>Full Name</th>
                             <th>Email</th>
@@ -57,39 +59,24 @@ const UserTable = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
-                            <td>@mdo</td>
-                            <td>@mdo</td>
-                            <td>@mdo</td>
-                            <td>@mdo</td>
-                            <td>@mdo</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">2</th>
-                            <td>Jacob</td>
-                            <td>Thornton</td>
-                            <td>@fat</td>
-                            <td>@fat</td>
-                            <td>@fat</td>
-                            <td>@fat</td>
-                            <td>@fat</td>
-                            <td>@fat</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">3</th>
-                            <td>Larry</td>
-                            <td>the Bird</td>
-                            <td>@twitter</td>
-                            <td>@twitter</td>
-                            <td>@twitter</td>
-                            <td>@twitter</td>
-                            <td>@twitter</td>
-                            <td>@twitter</td>
-                        </tr>
+                        {data.map((item, index) => {
+                            return (
+                                <tr key={index}>
+                                    <th>{item.id}</th>
+                                    <td>{item.name + " " + item.middlename + " " + item.surname}</td>
+                                    <td>{item.email}</td>
+                                    <td>{item.phone}</td>
+                                    <td>{item.gender}</td>
+                                    <td>{item.birth_date}</td>
+                                    <td>{item.country}</td>
+                                    <td>
+                                        <a className="btn btn-info btn-sm me-4" onClick={() => redirectToView(item.id)}><span className="bi-eye-fill"></span></a>
+                                        <a className="btn btn-warning btn-sm me-4"><span className="bi-pencil-square"></span></a>
+                                        <a className="btn btn-danger btn-sm"><span className="bi-trash-fill"></span></a>
+                                    </td>
+                                </tr>
+                            );
+                        })}
                     </tbody>
                 </table>
             </div>

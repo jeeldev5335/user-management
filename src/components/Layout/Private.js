@@ -1,7 +1,8 @@
-import { getMergedStatus } from "antd/lib/_util/statusUtils";
 import React, { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
+import { getToken } from "../../utils";
 import PrivateNavbar from "../Navbar/PrivateNavbar";
+import api from '../../api';
 
 const Private = () => {
 
@@ -12,19 +13,26 @@ const Private = () => {
     }, [])
 
     const getMe = () => {
-        setMe({
-            name: 'Alpesh'
-        });
+        const token = getToken();
+
+        api.get("/api/me", { headers: { "Authorization": `Bearer ${token}` } })
+            .then((response) => {
+                const { name } = response.data;
+                setMe({ 'name': name });
+            })
+            .catch((error) => {
+                console.log(error);
+            })
     }
 
     return (
         <React.Fragment>
             <PrivateNavbar me={me} />
-            {/** Rendered component from Route.js base on the URL **/}
+            {/** Renders component from Route.js base on the URL **/}
             <div className="container">
                 <Outlet />
             </div>
-            {/** Rendered component from Route.js base on the URL **/}
+            {/** Renders component from Route.js base on the URL **/}
         </React.Fragment>
     )
 };

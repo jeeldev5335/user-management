@@ -1,13 +1,19 @@
 import axios from 'axios';
-import { apiBaseUrl } from './utils';
+import { apiBaseUrl, getToken, hasToken } from './utils';
+
+const headers = {
+    'Accept': 'application/json',
+    'Content-Type': 'application/json'
+};
+
+if(hasToken()) {
+    headers['Authorization'] = `Bearer ${getToken()}`;
+}
 
 const instance = axios.create({
     baseURL: apiBaseUrl,
     timeout: 10000,
-    headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-    }
+    headers,
 });
 
 export default instance;

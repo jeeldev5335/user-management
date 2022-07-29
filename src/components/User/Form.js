@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import PublicNavbar from "../Navbar/PublicNavbar";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import CheckboxGroup from "../controls/CheckboxGroup";
 import api from '../../api';
@@ -10,11 +9,6 @@ const Form = () => {
 
     const [data, setData] = useState({});
     const [errors, setErrors] = useState({});
-
-    useEffect(() => {
-        console.log("usertable")
-        // handleData();
-    }, [])
 
     const handleChange = (event) => {
         setData((preData) => {
