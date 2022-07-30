@@ -5,7 +5,7 @@ const PublicNavbar = () => {
 
   return (
     <React.Fragment>
-      <div className="sticky-top bg-secondary text-white">
+      <div className="sticky-top shadow bg-secondary text-white">
         <h1 className="text-center py-4">User Management System</h1>
       </div>
     </React.Fragment>

@@ -9,6 +9,7 @@ import LoginPage from '../Auth/LoginPage';
 import UserTable from '../User/UserTable'
 import { hasToken } from '../../utils';
 import ViewData from '../User/View';
+import Update from '../User/Update';
 
 const AppRoute = () => {
 
@@ -27,7 +28,8 @@ const AppRoute = () => {
                     <Route path='/' element={getDefaultComponent()}></Route>
                     <Route path='/register' element={<Form />}></Route>
                     <Route path='/forgot-password' element={<Forgotpass />}></Route>
-                    <Route path='/user/3' element={<ViewData />}></Route>
+                    <Route path='/user/view/:id' element={<ViewData />}></Route>
+                    <Route path='/user/update/:id' element={<Update />}></Route>
                 </Route>
                 <Route path="*" element={<Error />} />
             </Routes>

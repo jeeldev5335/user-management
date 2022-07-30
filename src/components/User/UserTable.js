@@ -2,29 +2,28 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import api from '../../api';
 
-
 const UserTable = () => {
 
     const [data, setData] = useState([]);
 
-    useEffect(() => {
-        getData();
-    }, [])
+    useEffect(() => { getData(); }, [])
 
     const getData = () => {
         api.get("/api/users")
             .then((response) => {
                 const { data } = response;
-                // console.log(data);
                 setData(data);
-            })
-            .catch((error) => {
+            }).catch((error) => {
                 console.log(error);
             });
     }
 
     const redirectToView = (id) => {
-        //window.location.href=`/user/${id}`
+        window.location.href = `/user/view/${id}`;
+    }
+
+    const redirectToUpdate = (id) => {
+        window.location.href = `/user/update/${id}`;
     }
 
 
@@ -71,7 +70,7 @@ const UserTable = () => {
                                     <td>{item.country}</td>
                                     <td>
                                         <a className="btn btn-info btn-sm me-4" onClick={() => redirectToView(item.id)}><span className="bi-eye-fill"></span></a>
-                                        <a className="btn btn-warning btn-sm me-4"><span className="bi-pencil-square"></span></a>
+                                        <a className="btn btn-warning btn-sm me-4" onClick={() => redirectToUpdate(item.id)} ><span className="bi-pencil-square"></span></a>
                                         <a className="btn btn-danger btn-sm"><span className="bi-trash-fill"></span></a>
                                     </td>
                                 </tr>

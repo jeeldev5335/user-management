@@ -14,7 +14,7 @@ const PrivateNavbar = (props) => {
 
   return (
     <React.Fragment>
-      <div className="navbar navbar-expand-lg navbar-light bg-light text-center">
+      <div className="sticky-top shadow navbar navbar-expand-lg navbar-light bg-light text-center">
         <div className="navbar-collapse ms-3">
           <Link className="nav-link m-2" to="/">User-List</Link>
           <Link className="nav-link m-2" to="register">Form</Link>
@@ -30,7 +30,7 @@ const PrivateNavbar = (props) => {
             <ul className="dropdown-menu" aria-labelledby="defaultDropdown">
               <li><a className="dropdown-item">My Profile</a></li>
               <li><a className="dropdown-item">Change Password</a></li>
-              <li><div class="dropdown-divider"> </div></li>
+              <li><div className="dropdown-divider"> </div></li>
               <li><Link className="dropdown-item" onClick={handleLogout} to="login">Logout</Link></li>
             </ul>
           </div>
