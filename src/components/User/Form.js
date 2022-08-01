@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { hobbiesOptions, hydrateUser, setToken, allowOnlyNumbers, allowOnlyAlphabets } from "../../utils";
+import { hobbiesOptions, setToken, allowOnlyNumbers, allowOnlyAlphabets } from "../../utils";
 import CheckboxGroup from "../controls/CheckboxGroup";
-import api from '../../api';
+import UserService from "../Service/UserService";
 
 const Form = () => {
 
@@ -102,7 +102,6 @@ const Form = () => {
             formErrors['city'] = 'Please enter the city.';
         }
 
-
         if (!data.zipcode) {
             formErrors['zipcode'] = 'Please enter the zipcode.';
         }
@@ -112,7 +111,6 @@ const Form = () => {
         else if (data.zipcode.length < 5) {
             formErrors['zipcode'] = 'Zip code must be 5-6 character long.';
         }
-
 
         if (data.hobby == '') {
             formErrors['hobby'] = 'Please select the hobby.';
@@ -125,19 +123,15 @@ const Form = () => {
         setErrors(formErrors);
 
         if (Object.keys(formErrors).length == "0") {
-            console.log("Validation Done");
-
-            api.post("/api/register", hydrateUser(data))
-                .then((response) => {
-                    const { token } = response.data;
-                    setToken(token);
-                    window.location.href = "/";
-                }).catch((err) => {
-                    const { response } = err;
-                    const { data } = response;
-                    const { errors } = data;
-                    setErrors(errors);
-                });
+            const obj = new UserService();
+            
+            obj.addUser(data).then(response => {
+                const { token } = response;
+                setToken(token);
+                window.location.href = "/";
+            }).catch(error => {
+                setErrors(error);
+            });
         }
 
     };

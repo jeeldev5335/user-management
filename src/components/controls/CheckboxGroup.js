@@ -26,7 +26,7 @@ const CheckboxGroup = ({ options, selectedOptions, handleChange }) => {
             {options.map(ele => {
                 const isChecked = selectedOptions && selectedOptions.includes(ele.value) ? true : false;
                 return (<div className="form-check form-check-inline">
-                    <input className="form-check-input" type="checkbox" name="hobby" id={ele.value} value={ele.value} onChange={(event) => handleTheChange(event, !isChecked)} />
+                    <input className="form-check-input" type="checkbox" name="hobby" id={ele.value} value={ele.value} checked={isChecked} onChange={(event) => handleTheChange(event, !isChecked)} />
                     <label className="form-check-label" htmlFor={ele.value}>{ele.name}</label>
                 </div>)
             })}

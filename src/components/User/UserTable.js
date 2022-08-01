@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import api from '../../api';
+import UserService from "../Service/UserService";
 
 const UserTable = () => {
 
@@ -9,13 +9,12 @@ const UserTable = () => {
     useEffect(() => { getData(); }, [])
 
     const getData = () => {
-        api.get("/api/users")
-            .then((response) => {
-                const { data } = response;
-                setData(data);
-            }).catch((error) => {
-                console.log(error);
-            });
+        const obj = new UserService();
+        obj.getAllUsers().then((response) => {
+            setData(response);
+        }).catch((error) => {
+            console.log(error);
+        })
     }
 
     const redirectToView = (id) => {
@@ -26,6 +25,17 @@ const UserTable = () => {
         window.location.href = `/user/update/${id}`;
     }
 
+    const handleDelete = (id) => {
+        const object = new UserService();
+
+        if (window.confirm("Are you sure to delete this record?")) {
+            object.deleteUser(id).then(() => {
+                getData();
+            }).catch((error) => {
+                alert(error);
+            })
+        }
+    }
 
     return (
         <React.Fragment>
@@ -38,12 +48,12 @@ const UserTable = () => {
                         <tr>
                             <th colSpan="7">Data:</th>
                             <th>
-                                <span>
-                                    <Link className="nav-link m-2" to="register">
+                                <div className="btn btn-primary btn-sm">
+                                    <Link className="nav-link m-2" to="/create-user">
                                         <i className="bi bi-plus-square-dotted me-1"></i>
                                         ADD New User
                                     </Link>
-                                </span>
+                                </div>
                             </th>
                         </tr>
                         <tr>
@@ -71,7 +81,7 @@ const UserTable = () => {
                                     <td>
                                         <a className="btn btn-info btn-sm me-4" onClick={() => redirectToView(item.id)}><span className="bi-eye-fill"></span></a>
                                         <a className="btn btn-warning btn-sm me-4" onClick={() => redirectToUpdate(item.id)} ><span className="bi-pencil-square"></span></a>
-                                        <a className="btn btn-danger btn-sm"><span className="bi-trash-fill"></span></a>
+                                        <a className="btn btn-danger btn-sm" onClick={() => handleDelete(item.id, item.name)}><span className="bi-trash-fill"></span></a>
                                     </td>
                                 </tr>
                             );

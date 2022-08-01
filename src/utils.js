@@ -20,24 +20,22 @@ export const removeToken = () => {
 
 export const hobbiesOptions = [
     { name: 'Cricket', value: 'Cricket' },
-    {
-        name: 'Volleyball',
-        value: 'Volleyball'
-    },
-    {
-        name: 'Hockey',
-        value: 'Hockey'
-    },
-    {
-        name: 'Football',
-        value: 'Football'
-    }
+    { name: 'Volleyball', value: 'Volleyball' },
+    { name: 'Hockey', value: 'Hockey' },
+    { name: 'Football', value: 'Football' }
 ];
 
 export const hydrateUser = (data) => {
     return {
         ...data,
         hobby: data && data.hobby && data.hobby.join(','),
+    }
+}
+
+export const deHydrateUser = (data) => {
+    return {
+        ...data,
+        hobby: data && data.hobby && data.hobby.split(','),
     }
 }
 

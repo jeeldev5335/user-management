@@ -10,6 +10,7 @@ import UserTable from '../User/UserTable'
 import { hasToken } from '../../utils';
 import ViewData from '../User/View';
 import Update from '../User/Update';
+import CreateUser from '../User/CreateUser';
 
 const AppRoute = () => {
 
@@ -27,6 +28,7 @@ const AppRoute = () => {
                 <Route path="/" exact element={getLayoutComponent()}>
                     <Route path='/' element={getDefaultComponent()}></Route>
                     <Route path='/register' element={<Form />}></Route>
+                    <Route path='/create-user' element={<CreateUser />}></Route>
                     <Route path='/forgot-password' element={<Forgotpass />}></Route>
                     <Route path='/user/view/:id' element={<ViewData />}></Route>
                     <Route path='/user/update/:id' element={<Update />}></Route>

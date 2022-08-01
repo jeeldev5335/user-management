@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { setToken } from "../../utils";
+import UserService from "../Service/UserService";
 
 const LoginPage = () => {
 
@@ -25,6 +27,17 @@ const LoginPage = () => {
         }
 
         setErrors(formError);
+
+        if (Object.keys(formError).length == "0") {
+            const obj = new UserService();
+
+            obj.loginUser(data).then((token) => {
+                setToken(token);
+                window.location.href = "/";
+            }) .catch((error) => {
+                setErrors(error);
+            })
+        }
     }
 
     return (

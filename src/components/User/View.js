@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import api from "../../api";
+import { Link, useParams } from "react-router-dom";
+import UserService from "../Service/UserService";
 
 const ViewData = () => {
     const [data, setData] = useState({});
@@ -11,24 +11,21 @@ const ViewData = () => {
     }, [])
 
     const getUserData = () => {
-        api.get(`/api/users/${id}`)
-            .then((response) => {
-                const { data } = response;
-                setData(data);
-            })
-            .catch((error) => {
-                console.log("data Error", error);
-            });
+        const obj = new UserService();
+        obj.getUser(id).then((response) => {
+            setData(response);
+        }).catch((error) => {
+            console.log("data Error", error);
+        })
     }
-
-    console.log(data);
 
     return (
         <div className="container">
             <table className="table">
                 <thead>
                     <tr>
-                        <td colSpan="2"> <h4>Details:</h4> </td>
+                        <td> <h4>Details:</h4> </td>
+                        <td> <Link to="/" className="btn btn-primary btn-sm">Back</Link> </td>
                     </tr>
                 </thead>
                 <tbody>

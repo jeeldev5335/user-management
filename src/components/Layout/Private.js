@@ -17,8 +17,8 @@ const Private = () => {
 
         api.get("/api/me", { headers: { "Authorization": `Bearer ${token}` } })
             .then((response) => {
-                const { name } = response.data;
-                setMe({ 'name': name });
+                const { name, surname} = response.data;
+                setMe({ 'name': name, 'surname': surname });
             })
             .catch((error) => {
                 console.log(error);
