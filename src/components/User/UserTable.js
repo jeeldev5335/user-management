@@ -17,14 +17,6 @@ const UserTable = () => {
         })
     }
 
-    const redirectToView = (id) => {
-        window.location.href = `/user/view/${id}`;
-    }
-
-    const redirectToUpdate = (id) => {
-        window.location.href = `/user/update/${id}`;
-    }
-
     const handleDelete = (id) => {
         const object = new UserService();
 
@@ -79,8 +71,8 @@ const UserTable = () => {
                                     <td>{item.birth_date}</td>
                                     <td>{item.country}</td>
                                     <td>
-                                        <a className="btn btn-info btn-sm me-4" onClick={() => redirectToView(item.id)}><span className="bi-eye-fill"></span></a>
-                                        <a className="btn btn-warning btn-sm me-4" onClick={() => redirectToUpdate(item.id)} ><span className="bi-pencil-square"></span></a>
+                                        <Link className="btn btn-info btn-sm me-4" to={`/user/view/${item.id}`}><span className="bi-eye-fill"></span></Link>
+                                        <Link className="btn btn-warning btn-sm me-4" to={`/user/update/${item.id}`}><span className="bi-pencil-square"></span></Link>
                                         <a className="btn btn-danger btn-sm" onClick={() => handleDelete(item.id, item.name)}><span className="bi-trash-fill"></span></a>
                                     </td>
                                 </tr>

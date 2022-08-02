@@ -1,12 +1,15 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { allowOnlyAlphabets, allowOnlyNumbers, hobbiesOptions } from "../../utils";
 import CheckboxGroup from "../controls/CheckboxGroup";
+import UserService from "../Service/UserService";
 
 const CreateUser = () => {
 
     const [data, setData] = useState({});
     const [errors, setErrors] = useState({});
+    const { hobby } = data;
+    const navigate = useNavigate();
 
     const handleAlphabets = (event) => { allowOnlyAlphabets(event) };
     const handleNumbers = (event) => { allowOnlyNumbers(event) };
@@ -15,6 +18,108 @@ const CreateUser = () => {
         setData((preData) => {
             return { ...preData, [event.target.name]: event.target.value }
         })
+    }
+
+    const handleHobbyChange = (hobby) => {
+        setData((preData) => {
+            return { ...preData, ['hobby']: hobby }
+        });
+    }
+
+    const validation = () => {
+
+        const formErrors = {};
+
+        if (!data.name) {
+            formErrors['name'] = 'Please enter the first name.';
+        }
+
+        if (!data.middlename) {
+            formErrors['middlename'] = 'Please enter the middle name.';
+        }
+
+        if (!data.surname) {
+            formErrors['surname'] = 'Please enter the surname.';
+        }
+
+        if (!data.email) {
+            formErrors['email'] = 'Please enter the email.';
+        }
+        else if (!data.email.match(/^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,15}$/)) {
+            formErrors['email'] = 'Please enter valid email.';
+        }
+
+        if (!data.phone) {
+            formErrors['phone'] = 'Please enter the phone.';
+        }
+        else if (data.phone.indexOf(0) == 0) {
+            formErrors['phone'] = 'Phone number is not start from 0.'
+        }
+        else if (data.phone.length !== 10) {
+            formErrors['phone'] = 'Enter valid phone number.'
+        }
+
+        if (!data.gender) {
+            formErrors['gender'] = 'Please enter the gender.';
+        }
+
+        if (!data.birth_date) {
+            formErrors['birth_date'] = 'Please enter the birth date.';
+        }
+
+        if (!data.address_line1) {
+            formErrors['address_line1'] = 'Please enter the address.';
+        }
+
+        if (!data.address_line2) {
+            formErrors['address_line2'] = 'Please enter the address.';
+        }
+
+        if (!data.country) {
+            formErrors['country'] = 'Please choose the country.';
+        }
+
+        if (!data.state) {
+            formErrors['state'] = 'Please choose the state.';
+        }
+
+        if (!data.city) {
+            formErrors['city'] = 'Please enter the city.';
+        }
+
+        if (!data.zipcode) {
+            formErrors['zipcode'] = 'Please enter the zipcode.';
+        }
+        else if (data.zipcode.indexOf(0) == 0) {
+            formErrors['zipcode'] = 'Zip code is not start from 0.';
+        }
+        else if (data.zipcode.length < 5) {
+            formErrors['zipcode'] = 'Zip code must be 5-6 character long.';
+        }
+
+        if (data.hobby == '') {
+            formErrors['hobby'] = 'Please select the hobby.';
+        }
+        else if (data.hobby.length < 2) {
+            formErrors['hobby'] = 'Select at least 2 hobby.';
+        }
+
+        //Set errors into state variable that help to display in UI
+        setErrors(formErrors);
+
+        if (Object.keys(formErrors).length == "0") {
+            const object = new UserService();
+
+            object.createUser(data).then((response) => {
+                const { status } = response;
+                if (status == "201") {
+                    alert("User Created Successfully!");
+                    navigate("/");
+                }
+            }).catch((error) => {
+                setErrors(error)
+            })
+        }
     }
 
     return (
@@ -120,11 +225,11 @@ const CreateUser = () => {
                     </div>
                     <div className="col-lg-12">
                         <label htmlFor="hobby" className="form-label mb-3 required">Hobby</label>
-                        <CheckboxGroup options={hobbiesOptions} selectedOptions={[]} handleChange={() => {}} />
+                        <CheckboxGroup options={hobbiesOptions} selectedOptions={hobby} handleChange={handleHobbyChange} />
                         {errors.hobby && <div className="text-danger">{errors.hobby}</div>}
                     </div>
                     <div className="col-lg-12 text-center">
-                        <button type="submit" className="btn btn-primary">Create</button>
+                        <button type="submit" className="btn btn-primary" onClick={validation}>Create</button>
                     </div>
                 </form>
             </div>

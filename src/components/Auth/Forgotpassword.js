@@ -26,7 +26,7 @@ const Forgotpass = () => {
         <React.Fragment>
             <div className="container">
                 <h2 className="text-center my-3">Forgot Password</h2>
-                <p className="text-center">Enter your email to reset your password</p>
+                <p className="text-center">Enter your email to reset password</p>
                 <div className="col-md-4 offset-md-4">
                     <form className="row g-3 my-4" onSubmit={e => e.preventDefault()}>
                         <div className="col-md-12">

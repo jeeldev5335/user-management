@@ -54,10 +54,10 @@ const Form = () => {
             formErrors['phone'] = 'Please enter the phone.';
         }
         else if (data.phone.indexOf(0) == 0) {
-            formErrors['phone'] = 'Phone number is not start from 0.'
+            formErrors['phone'] = 'Phone number is not start from 0.';
         }
         else if (data.phone.length !== 10) {
-            formErrors['phone'] = 'Enter valid phone number.'
+            formErrors['phone'] = 'Enter valid phone number.';
         }
 
         if (!data.gender) {

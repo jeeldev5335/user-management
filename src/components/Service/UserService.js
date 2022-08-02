@@ -66,14 +66,25 @@ class UserService {
         )
     }
 
-    cerateUser(data) {
+    createUser(data) {
         return (
             api.post(`/api/users`, hydrateUser(data))
                 .then((response) => {
-                    return response?.data;
+                    return response;
                 }).catch((error) => {
                     const { errors } = error?.response?.data;
                     return errors;
+                })
+        )
+    }
+
+    changeProfile(data) {
+        return (
+            api.put(`/api/change-profile`, hydrateUser(data))
+                .then((response) => {
+                    return response;
+                }).catch((error) => {
+                    return error;
                 })
         )
     }
@@ -87,6 +98,17 @@ class UserService {
                 }).catch((error) => {
                     const { errors } = error?.response?.data;
                     return errors;
+                })
+        )
+    }
+
+    logoutUser() {
+        return (
+            api.post(`/api/logout`)
+                .then((response) => {
+                    return response?.data;
+                }).catch((error) => {
+                    return error;
                 })
         )
     }

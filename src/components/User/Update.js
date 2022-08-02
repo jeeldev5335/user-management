@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import CheckboxGroup from "../controls/CheckboxGroup";
 import { allowOnlyAlphabets, allowOnlyNumbers, deHydrateUser, hobbiesOptions } from "../../utils";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import UserService from "../Service/UserService";
 
 const Update = () => {
@@ -10,6 +10,7 @@ const Update = () => {
     const { id } = useParams();
     const { hobby, gender, country, state } = data;
     const [errors, setErrors] = useState({});
+    const navigate = useNavigate();
 
     useEffect(() => {
         getUserData();
@@ -122,7 +123,8 @@ const Update = () => {
 
             object.updateUser(id, data).then(() => {
                 alert("data Update Successfully");
-                window.location.href = "/";
+                navigate("/");
+                // window.location.href = "/";
             }).catch((error) => {
                 setErrors(error);
             })

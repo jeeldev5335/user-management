@@ -32,9 +32,13 @@ const LoginPage = () => {
             const obj = new UserService();
 
             obj.loginUser(data).then((token) => {
-                setToken(token);
-                window.location.href = "/";
-            }) .catch((error) => {
+                if (token) {
+                    setToken(token);
+                    window.location.href = "/";
+                } else {
+                    setErrors({ message: 'Invalid Login!' })
+                }
+            }).catch((error) => {
                 setErrors(error);
             })
         }
@@ -45,16 +49,17 @@ const LoginPage = () => {
             <div className="container">
                 <h2 className="text-center my-3">Login</h2>
                 <div className="col-md-4 offset-md-4">
+                    {errors.message && <div className="alert alert-danger">{errors.message}</div>}
                     <form className="row g-3 my-4" onSubmit={e => e.preventDefault()}>
                         <div className="col-md-12">
                             <label htmlFor="email" className="form-label required">Email</label>
                             <input type="text" className="form-control" id="email" name="email" onChange={handleChange} />
-                            {errors.name !== '' && <div className="text-danger">{errors.email}</div>}
+                            {errors.email && <div className="text-danger">{errors.email}</div>}
                         </div>
                         <div className="col-md-12">
                             <label htmlFor="password" className="form-label required">Password</label>
                             <input type="password" className="form-control" id="password" name="password" onChange={handleChange} />
-                            {errors.password !== '' && <div className="text-danger">{errors.password}</div>}
+                            {errors.password && <div className="text-danger">{errors.password}</div>}
                         </div>
                         <div className="col-md-12 text-center">
                             <button type="submit" className="btn btn-primary" onClick={validateLogin}>Sign in</button>
