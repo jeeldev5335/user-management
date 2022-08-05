@@ -42,6 +42,18 @@ class UserService {
         )
     }
 
+    getMe() {
+        return (
+            api.get(`/api/me`)
+                .then((response) => {
+                    return response;
+                })
+                .catch((error) => {
+                    return error;
+                })
+        )
+    }
+
     getUser(id) {
         return (
             api.get(`/api/users/${id}`)

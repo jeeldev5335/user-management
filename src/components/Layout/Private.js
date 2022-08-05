@@ -1,28 +1,25 @@
 import React, { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
-import { getToken } from "../../utils";
 import PrivateNavbar from "../Navbar/PrivateNavbar";
-import api from '../../api';
+import UserService from "../Service/UserService";
 
 const Private = () => {
 
     const [me, setMe] = useState({});
 
     useEffect(() => {
-        getMe();
+        currentUser();
     }, [])
 
-    const getMe = () => {
-        const token = getToken();
+    const currentUser = () => {
+        const object = new UserService;
 
-        api.get("/api/me", { headers: { "Authorization": `Bearer ${token}` } })
-            .then((response) => {
-                const { name, surname} = response.data;
-                setMe({ 'name': name, 'surname': surname });
-            })
-            .catch((error) => {
-                console.log(error);
-            })
+        object.getMe().then((response) => {
+            const { id, name, surname } = response.data;
+            setMe({ 'id': id, 'name': name, 'surname': surname });
+        }).catch((error) => {
+            console.log(error);
+        })
     }
 
     return (

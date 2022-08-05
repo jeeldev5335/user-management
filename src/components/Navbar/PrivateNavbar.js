@@ -36,7 +36,7 @@ const PrivateNavbar = (props) => {
               {me.name + " " + me.surname}
             </div>
             <ul className="dropdown-menu" aria-labelledby="defaultDropdown">
-              <li><a className="dropdown-item">My Profile</a></li>
+              <li><Link className="dropdown-item" to={`/myprofile/${me.id}`}>My Profile</Link></li>
               <li><a className="dropdown-item">Change Password</a></li>
               <li><div className="dropdown-divider"> </div></li>
               <li><Link className="dropdown-item" onClick={handleLogout} to="/">Logout</Link></li>

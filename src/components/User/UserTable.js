@@ -40,12 +40,10 @@ const UserTable = () => {
                         <tr>
                             <th colSpan="7">Data:</th>
                             <th>
-                                <div className="btn btn-primary btn-sm">
-                                    <Link className="nav-link m-2" to="/create-user">
-                                        <i className="bi bi-plus-square-dotted me-1"></i>
-                                        ADD New User
-                                    </Link>
-                                </div>
+                                <Link className="btn btn-primary m-2" to="/create-user">
+                                    <i className="bi bi-plus-square-dotted me-1"></i>
+                                    ADD New User
+                                </Link>
                             </th>
                         </tr>
                         <tr>
@@ -73,7 +71,7 @@ const UserTable = () => {
                                     <td>
                                         <Link className="btn btn-info btn-sm me-4" to={`/user/view/${item.id}`}><span className="bi-eye-fill"></span></Link>
                                         <Link className="btn btn-warning btn-sm me-4" to={`/user/update/${item.id}`}><span className="bi-pencil-square"></span></Link>
-                                        <a className="btn btn-danger btn-sm" onClick={() => handleDelete(item.id, item.name)}><span className="bi-trash-fill"></span></a>
+                                        <button className="btn btn-danger btn-sm" onClick={() => handleDelete(item.id, item.name)}><span className="bi-trash-fill"></span></button>
                                     </td>
                                 </tr>
                             );

@@ -11,6 +11,8 @@ import { hasToken } from '../../utils';
 import ViewData from '../User/View';
 import Update from '../User/Update';
 import CreateUser from '../User/CreateUser';
+import MyProfile from '../User/MyProfile';
+import UpdateProfile from '../User/UpdateProfile';
 
 const AppRoute = () => {
 
@@ -32,6 +34,8 @@ const AppRoute = () => {
                     <Route path='/forgot-password' element={<Forgotpass />}></Route>
                     <Route path='/user/view/:id' element={<ViewData />}></Route>
                     <Route path='/user/update/:id' element={<Update />}></Route>
+                    <Route path='/myprofile/:id' element={<MyProfile />}></Route>
+                    <Route path='/update-profile/:id' element={<UpdateProfile />}></Route>
                 </Route>
                 <Route path="*" element={<Error />} />
             </Routes>
