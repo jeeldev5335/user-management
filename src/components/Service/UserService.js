@@ -12,8 +12,7 @@ class UserService {
                 }).catch((error) => {
                     const { response } = error;
                     const { data } = response;
-                    const { errors } = data;
-                    return errors;
+                    throw data;
                 })
         )
     }
@@ -24,8 +23,8 @@ class UserService {
                 .then((response) => {
                     return response?.data;
                 }).catch((error) => {
-                    const { errors } = error?.response?.data;
-                    return errors;
+                    const { data } = error?.response;
+                    throw data;
                 })
         )
     }
@@ -36,8 +35,8 @@ class UserService {
                 .then((response) => {
                     return response?.data;
                 }).catch((error) => {
-                    const { errors } = error?.response?.data;
-                    return errors;
+                    const { data } = error?.response;
+                    throw data;
                 })
         )
     }
@@ -49,7 +48,7 @@ class UserService {
                     return response;
                 })
                 .catch((error) => {
-                    return error;
+                    throw error;
                 })
         )
     }
@@ -61,8 +60,7 @@ class UserService {
                     return response?.data;
                 })
                 .catch((error) => {
-                    console.log("data Error", error);
-                    return error;
+                    throw error;
                 })
         )
     }
@@ -73,7 +71,7 @@ class UserService {
                 .then((response) => {
                     return response?.data;
                 }).catch((error) => {
-                    return error;
+                    throw error;
                 })
         )
     }
@@ -84,8 +82,8 @@ class UserService {
                 .then((response) => {
                     return response;
                 }).catch((error) => {
-                    const { errors } = error?.response?.data;
-                    return errors;
+                    const { data } = error?.response;
+                    throw data;
                 })
         )
     }
@@ -96,7 +94,21 @@ class UserService {
                 .then((response) => {
                     return response;
                 }).catch((error) => {
-                    return error;
+                    throw error;
+                })
+        )
+    }
+
+    changePassword(data) {
+        return (
+            api.put(`/api/change-password`, data)
+                .then((response) => {
+                    return response;
+                })
+                .catch((error) => {
+                    const { response } = error;
+                    const { data } = response;
+                    throw data;
                 })
         )
     }
@@ -105,11 +117,10 @@ class UserService {
         return (
             api.post(`/api/login`, data)
                 .then((response) => {
-                    console.log(response);
                     return response?.data?.token;
                 }).catch((error) => {
-                    const { errors } = error?.response?.data;
-                    return errors;
+                    const { data } = error?.response;
+                    throw data;
                 })
         )
     }
@@ -120,7 +131,7 @@ class UserService {
                 .then((response) => {
                     return response?.data;
                 }).catch((error) => {
-                    return error;
+                    throw error;
                 })
         )
     }

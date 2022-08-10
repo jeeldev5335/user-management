@@ -1,7 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, createContext } from "react";
 import { Outlet } from "react-router-dom";
 import PrivateNavbar from "../Navbar/PrivateNavbar";
 import UserService from "../Service/UserService";
+
+export const UserContext = createContext()
 
 const Private = () => {
 
@@ -23,14 +25,14 @@ const Private = () => {
     }
 
     return (
-        <React.Fragment>
-            <PrivateNavbar me={me} />
+        <UserContext.Provider value={me}>
+            <PrivateNavbar />
             {/** Renders component from Route.js base on the URL **/}
             <div className="container">
                 <Outlet />
             </div>
             {/** Renders component from Route.js base on the URL **/}
-        </React.Fragment>
+        </UserContext.Provider>
     )
 };
 

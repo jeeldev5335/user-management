@@ -13,6 +13,7 @@ import Update from '../User/Update';
 import CreateUser from '../User/CreateUser';
 import MyProfile from '../User/MyProfile';
 import UpdateProfile from '../User/UpdateProfile';
+import ChangePassword from '../User/ChangePassword';
 
 const AppRoute = () => {
 
@@ -36,6 +37,7 @@ const AppRoute = () => {
                     <Route path='/user/update/:id' element={<Update />}></Route>
                     <Route path='/myprofile/:id' element={<MyProfile />}></Route>
                     <Route path='/update-profile/:id' element={<UpdateProfile />}></Route>
+                    <Route path='/change-password' element={<ChangePassword />}></Route>
                 </Route>
                 <Route path="*" element={<Error />} />
             </Routes>

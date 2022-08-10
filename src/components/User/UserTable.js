@@ -1,8 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import UserService from "../Service/UserService";
+import { UserContext } from "../Layout/Private";
 
 const UserTable = () => {
+    const me = useContext(UserContext);
+    console.log('me', me);
 
     const [data, setData] = useState([]);
 
@@ -69,9 +72,9 @@ const UserTable = () => {
                                     <td>{item.birth_date}</td>
                                     <td>{item.country}</td>
                                     <td>
-                                        <Link className="btn btn-info btn-sm me-4" to={`/user/view/${item.id}`}><span className="bi-eye-fill"></span></Link>
-                                        <Link className="btn btn-warning btn-sm me-4" to={`/user/update/${item.id}`}><span className="bi-pencil-square"></span></Link>
-                                        <button className="btn btn-danger btn-sm" onClick={() => handleDelete(item.id, item.name)}><span className="bi-trash-fill"></span></button>
+                                        <Link className="btn btn-outline-info btn-sm me-4" to={`/user/view/${item.id}`} style={{ pointerEvents: me.id == item.id ? 'none' : ''}}><span className="bi-eye-fill"></span></Link>
+                                        <Link className="btn btn-outline-warning btn-sm me-4" to={`/user/update/${item.id}`} style={{ pointerEvents: me.id == item.id ? 'none' : '' }}><span className="bi-pencil-square"></span></Link>
+                                        <button className="btn btn-outline-danger btn-sm" onClick={() => handleDelete(item.id)} disabled={me.id == item.id}><span className="bi-trash-fill"></span></button>
                                     </td>
                                 </tr>
                             );

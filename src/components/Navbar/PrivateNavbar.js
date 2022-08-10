@@ -1,12 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { removeToken } from "../../utils";
+import { UserContext } from "../Layout/Private";
 import UserService from "../Service/UserService";
 
 
-const PrivateNavbar = (props) => {
-
-  const { me } = props;
+const PrivateNavbar = () => {
+  const me = useContext(UserContext);
 
   const handleLogout = () => {
     const obj = new UserService();
@@ -37,7 +37,7 @@ const PrivateNavbar = (props) => {
             </div>
             <ul className="dropdown-menu" aria-labelledby="defaultDropdown">
               <li><Link className="dropdown-item" to={`/myprofile/${me.id}`}>My Profile</Link></li>
-              <li><a className="dropdown-item">Change Password</a></li>
+              <li><Link className="dropdown-item" to="/change-password">Change Password</Link></li>
               <li><div className="dropdown-divider"> </div></li>
               <li><Link className="dropdown-item" onClick={handleLogout} to="/">Logout</Link></li>
             </ul>

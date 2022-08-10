@@ -32,7 +32,7 @@ const Forgotpass = () => {
                         <div className="col-md-12">
                             <label htmlFor="email" className="form-label required">Email</label>
                             <input type="text" className="form-control" id="email" name="email" onChange={handleChange} />
-                            {errors.email !== '' && <div className="text-danger">{errors.email}</div>}
+                            {errors.email && <div className="text-danger">{errors.email}</div>}
                         </div>
                         <div className="col-md-12 text-center">
                             <button type="submit" className="btn btn-primary" onClick={validateForgotPassword} >Reset password</button>

@@ -39,7 +39,9 @@ const LoginPage = () => {
                     setErrors({ message: 'Invalid Login!' })
                 }
             }).catch((error) => {
-                setErrors(error);
+                if (error) {
+                    setErrors({ message: 'Invalid Login!' });
+                }
             })
         }
     }
